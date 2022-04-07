@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Форма обратной связи</title>
+</head>
+<body>
+    <?php if(isset($success)) : ?>
+        <div class="alert alert-success" role="alert">
+            Спасибо! Наш специалист свяжется с Вами в ближайшее время!
+        </div>
+    <?php endif; ?>
+
+    <?php if(isset($download)) : ?>
+        <div class="alert alert-primary" role="alert">
+            Файл загружен успешно!
+        </div>
+    <?php endif; ?>
+    
+        <div  class="container">
+            <h2>Мы здесь, чтобы помочь Вам</h2>
+            <h3>Свяжитесь с нами в любое время, и мы будем рады ответить на все ваши вопросы</h3> 
+        </div>
+    </br>
+
+<div class="container">
+    <div class="row">
+    <div class="offset-md-2 col-md-8">
+    <form action="index.php" method="post">
+        
+        <div class="form-group row">
+            <label for="first_name" class="col-sm-2 col-form-label">Имя</label>
+            <input id="first_name" type="text" name="first_name" required>
+        </div>
+    
+        <div class="form-group row">
+            <label for="last_name" class="col-sm-2 col-form-label">Фамилия</label>
+            <input id="last_name" type="text" name="last_name"required>
+        </div>
+     
+        <div class="form-group row">
+            <label for="email" class="col-sm-2 col-form-label">Email</label>
+            <input id="email" type="email" name="email" required>
+        </div>
+            
+        <div class="form-group row">
+            <legend class="col-sm-4 col-form-label">Являетесь ли вы клиентом нашего сервиса?</legend>
+                <div class="form-check-inline">
+                    <input class="form-check-input" type="radio" name="client" id="client" value="y" checked>
+                    <label class="form-check-label" for="client">
+                        Да
+                    </label>
+                </div>
+    
+                <div class="form-check-inline">
+                    <input class="form-check-input" type="radio" name="client" id="not_client" value="n">
+                    <label class="form-check-label" for="not_client">
+                        Нет
+                    </label>                
+                </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="about" class="form-group form-agreement"> Поставьте галочку, если вы принимаете условия Пользовательского соглашения и даете своё согласие на обработку персональных данных</label> 
+            <input id="about" type="checkbox" value="1" checked required>
+        </div>
+
+        <div class="form-group row">
+            Посоветовали бы вы наш сервис друзьям?
+            <select name="advice">
+                <option>Конечно,да</option>
+                <option>Скорее да, чем нет</option>
+                <option>Скорее нет, чем да</option>
+                <option>Точно нет</option>
+                       
+            </select>
+        </div>
+
+        <div class="form-group row">
+            <table>
+                <tr>
+                    <td> </td> <br/>
+                    <td class="container-fluid"><textarea name="comm_user" placeholder="Введите текст вашего обращения" cols="50" rows="5" required></textarea></td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="form-group row">
+            <input class="btn btn-danger col-sm-4" type="reset" value="Очистить">
+        </div> 
+
+        <div class="form-group row">
+            <input class="btn btn-primary col-sm-6 h-50 d-inline-block"  type="submit" value="Отправить">
+        </form>
+    </div>
+                           
+        <div class="form-group row">
+            <form method="post" enctype = 'multipart/form-data' >
+                <input type="file" name="file">
+                <input type="submit" value="Загрузить">
+
+        <?php
+            $uploadname=basename($_FILES['file']['name']);
+            $uploadpath='files/'.$uploadname;
+            if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadpath)) 
+                echo 'Успешно';
+            else 
+                echo 'Файл не загружен'; ?>
+
+                 </form>
+
+        </div>
+            </br>
+        <div class="form-group row">
+            <form action="index.php?mode=auth" method="post">
+            <input class="btn btn-light" type="submit" value="Я - Администратор">
+            </form> 
+        </div>
+    </div> 
+</div>
+
+    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>
